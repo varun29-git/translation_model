@@ -1,14 +1,19 @@
+# Python
 __pycache__/
 *.pyc
 
+# Virtual environments
 .venv/
 env/
 
+# Training artifacts
 runs/
 weights/
 *.pt
 *.ckpt
 
+# Notebooks
 .ipynb_checkpoints/
 
+# OS junk
 .DS_Store
