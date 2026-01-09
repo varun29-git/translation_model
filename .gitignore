@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+
+.venv/
+env/
+
+runs/
+weights/
+*.pt
+*.ckpt
+
+.ipynb_checkpoints/
+
+.DS_Store
