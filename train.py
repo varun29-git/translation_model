@@ -107,6 +107,7 @@ def get_ds(config):
     f'{config["lang_src"]}-{config["lang_tar"]}',
     split="train"
 )
+    ds_raw = ds_raw.select(range(50000))
 
 
 

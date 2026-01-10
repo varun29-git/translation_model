@@ -4,14 +4,14 @@ from pathlib import Path
 
 def get_config():
     return {
-        "batch_size": 16,
+        "batch_size": 32,
         "num_epoch": 25,
         "lr": 10 ** -4,
         "seq_len": 256,
         "d_model": 256,
-        "N": 6,
+        "N": 3,
         "h": 8,
-        "d_ff": 1024,
+        "d_ff": 512,
         "dropout": 0.1,
         "lang_src": "en",
         "lang_tar": "hi",
