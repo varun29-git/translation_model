@@ -181,7 +181,7 @@ def train_model(config):
         optimizer.load_state_dict(state["optimizer_state_dict"])
         global_step = state["global_step"]
 
-    loss_fn = nn.CrossEntropyLoss(ignore_index=tokenizer_source.token_to_id("[PAD]"), label_smoothing=0.1).to(device)
+    loss_fn = nn.CrossEntropyLoss(ignore_index=tokenizer_target.token_to_id("[PAD]"), label_smoothing=0.1).to(device)
 
     for epoch in range(initial_epoch, config["num_epoch"]):
         model.train()
@@ -214,7 +214,7 @@ def train_model(config):
             optimizer.zero_grad()
 
             # Run Val
-            run_validation(model, val_dataloader, tokenizer_source, tokenizer_target, config["seq_len"], device, lambda msg: batch_iterator.write(msg), global_step, writer)
+            # run_validation(model, val_dataloader, tokenizer_source, tokenizer_target, config["seq_len"], device, lambda msg: batch_iterator.write(msg), global_step, writer)
 
             global_step += 1
         run_validation(model, val_dataloader, tokenizer_source, tokenizer_target, config["seq_len"], device, lambda msg: batch_iterator.write(msg), global_step, writer)

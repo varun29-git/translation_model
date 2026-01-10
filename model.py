@@ -53,11 +53,11 @@ class PositionalEmbedding(nn.Module):
 
 class LayerNorm(nn.Module):
 
-    def __init__(self, epsilon = 10 ** -6):
+    def __init__(self, d_model, epsilon = 10 ** -6):
         super().__init__()
         self.epsilon = epsilon
-        self.gamma = nn.Parameter(torch.ones(1))
-        self.bias = nn.Parameter(torch.zeros(1))
+        self.gamma = nn.Parameter(torch.ones(d_model))
+        self.bias = nn.Parameter(torch.zeros(d_model))
     
     def forward(self, x):
         mean = x.mean(dim = -1, keepdim = True)
@@ -103,7 +103,7 @@ class MultiHeadAttention(nn.Module):
         attention_scores = (query @ key.transpose(-2, -1)) / math.sqrt(d_k)
 
         if mask is not None:
-            attention_scores.masked_fill_(mask == 0, -1e9)
+            attention_scores.masked_fill_(mask == 0, -1e20)
         attention_scores = attention_scores.softmax(dim = -1) # ((Q @ K.T)/ d_model  ** 0.5)
 
         if Dropout is not None:
@@ -250,8 +250,8 @@ class Transformer(nn.Module):
 
 def build_transformer(src_vocab_size, tar_vocab_size, src_seq_len, tar_seq_len, d_model=512, N=6, h=8, dropout=0.1, d_ff=2048):
 
-    src_embed = InputEmbeddings(d_model, src_vocab_size)
-    tar_embed = InputEmbeddings(d_model, tar_vocab_size)
+    src_embed = InputEmbeddings(src_vocab_size, d_model)
+    tar_embed = InputEmbeddings(tar_vocab_size, d_model)
     src_pos = PositionalEmbedding(d_model, src_seq_len, dropout)
     tar_pos = PositionalEmbedding(d_model, tar_seq_len, dropout)
 

@@ -15,9 +15,9 @@ class BilingualDataset(Dataset):
         self.tar_lang = tar_lang
         self.seq_len = seq_len
         
-        self.sos_token = torch.tensor([tokenizer_src.token_to_id("[SOS]")], dtype=torch.int64)
-        self.eos_token = torch.tensor([tokenizer_src.token_to_id("[EOS]")], dtype=torch.int64)
-        self.pad_token = torch.tensor([tokenizer_src.token_to_id("[PAD]")], dtype=torch.int64)
+        self.sos_token = torch.tensor([tokenizer_tar.token_to_id("[SOS]")], dtype=torch.int64)
+        self.eos_token = torch.tensor([tokenizer_tar.token_to_id("[EOS]")], dtype=torch.int64)
+        self.pad_token = torch.tensor([tokenizer_tar.token_to_id("[PAD]")], dtype=torch.int64)
 
     def __len__(self):
         return len(self.ds)
@@ -71,7 +71,7 @@ class BilingualDataset(Dataset):
             "encoder_input": encoder_input,
             "decoder_input": decoder_input,
             "encoder_mask": (encoder_input != self.pad_token).unsqueeze(0).unsqueeze(0).int(),
-            "decoder_mask": (decoder_input != self.pad_token).unsqueeze(0).unsqueeze(0).int() & causal_mask(decoder_input.size(0)),
+            "decoder_mask": (decoder_input != self.pad_token).unsqueeze(0).int() & causal_mask(decoder_input.size(0)).int(),
             "label": label,
             "src_text": src_text,
             "tar_text": tar_text
@@ -79,5 +79,6 @@ class BilingualDataset(Dataset):
 
 
 def causal_mask(size):
-    mask =  torch.triu(torch.ones(1, size, size), diagonal=1).type(torch.int)
-    return mask
+    mask = torch.tril(torch.ones(size, size)).unsqueeze(0)
+    return mask.int()
+
