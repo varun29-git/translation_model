@@ -270,8 +270,8 @@ def build_transformer(src_vocab_size, tar_vocab_size, src_seq_len, tar_seq_len, 
         decoder_block = DecoderBlock(d_model, decoder_self_attention_block, decoder_cross_attention_block, decoder_feed_forward_block, dropout)
         decoder_blocks.append(decoder_block)
     
-    encoder = Encoder(nn.ModuleList(encoder_blocks))
-    decoder = Decoder(nn.ModuleList(decoder_blocks))
+    encoder = Encoder(d_model, nn.ModuleList(encoder_blocks))
+    decoder = Decoder(d_model, nn.ModuleList(decoder_blocks))
     projection_layer = ProjectionLayer(d_model, tar_vocab_size)
 
     # Transformer
