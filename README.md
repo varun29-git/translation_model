@@ -4,7 +4,7 @@ This repository implements an encoder–decoder Transformer for English to Hindi
 The model architecture follows the original Transformer architecture from the paper [“Attention Is All You Need”](https://arxiv.org/pdf/1706.03762).
 
 
-## Model Architecture 
+# Model Architecture 
 *`model.py`*
 * Learned input embeddings scaled by √d_model for source and target.
 * Sinusoidal positional embeddings added to token embeddings for order information.
@@ -53,7 +53,7 @@ The model architecture follows the original Transformer architecture from the pa
 *`inference.ipynb`*
 During inference, the model shows clearly different behavior depending on how close the input sentence is to the training distribution.
 
-# 1. Common conversational sentences
+### 1. Common conversational sentences
 
 Example:
 *“How are you doing today?”
@@ -63,7 +63,7 @@ Example:
 * The model has seen enough examples to learn stable word order, verb usage, and question structure.
 * As a result, translations are fluent and grammatically correct.
 
-# 2. Sentences with proper nouns or rare constructions
+### 2. Sentences with proper nouns or rare constructions
 
 Example:
 *“My name is Varun”
@@ -73,7 +73,7 @@ Example:
 * The tokenizer may split or map them to less meaningful sub-tokens.
 * The model defaults to common sentence templates (“मेरा नाम है …”) but fails to complete them correctly.
 
-# 3. Out-of-distribution inputs
+### 3. Out-of-distribution inputs
 
 Example:
 *“Namaste”*
