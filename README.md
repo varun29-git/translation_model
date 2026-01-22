@@ -51,6 +51,7 @@ The model architecture follows the original Transformer architecture from the pa
 
 ## Inference Behavior & Observations
 *`inference.ipynb`*
+
 During inference, the model shows clearly different behavior depending on how close the input sentence is to the training distribution.
 
 ### 1. Common conversational sentences
