@@ -7,7 +7,7 @@ The model architecture follows the original Transformer architecture from the pa
 # Model Architecture 
 *`model.py`*
 * Learned input embeddings scaled by √d_model for source and target.
-* Positional embeddings added to token embeddings for order information.
+* Sinusoidal positional embeddings added to token embeddings for order information.
 * Multi-head attention with query, key, and value projections, head splitting, and recombination.
 * Residual connections with pre-layer normalization.
 * Feed-forward networks inside each block (linear -> ReLU -> linear -> dropout).
